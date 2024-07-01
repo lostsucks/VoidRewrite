@@ -28,7 +28,7 @@ function chatGame():
     delete {chatGame::*}
 
     set {chatGame::active} to true
-    broadcast "%nl%&f> &cC&6H&eA&aT &bG&dA&cM&6E &f<%nl%&r""
+    broadcast "%nl%&f> &cC&6H&eA&aT &bG&dA&cM&6E &f<%nl%&r"
     
     set {_n} to random integer from 1 to 2
     if {_n} = 1:
