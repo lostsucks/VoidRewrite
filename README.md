@@ -10,4 +10,4 @@ With this we are rewriting the **WHOLE** server!
 **Capabilities**: Our server can hold around 130 players before dropping to unplayable levels.
 
 ## 🔗 Links
-[![linkedin](https://img.shields.io/badge/avelith's_discord_server!-0A66C2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/avelith)
+[![discord](https://img.shields.io/badge/avelith's_discord_server!-0A66C2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/avelith)
