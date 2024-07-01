@@ -7,7 +7,7 @@ on async chat:
     set {_prestige} to romanized int tag "custom;prestige" of nbt compound of player
     set {_level} to int tag "custom;level" of nbt compound of player
     set {_asyncMsg} to formatted async chat message
-    set {_signedMsg} to signed chat message
+    #set {_signedMsg} to signed chat message
 
     if {_prestige} is not set:
         set {_prestige} to romanized 1
@@ -15,9 +15,9 @@ on async chat:
     set {_m::1} to "&5[&d1-1&5] &r%hex fixed player's prefix%%player's name%&7: "
     set {_m::2} to "&f%{_asyncMsg}%"
 
-    create callback for {m::2}:
-        if player has permission "rewrite.messages":
-            remove all players from {_signedMsg}
+    #create callback for {m::2}:
+    #    if player has permission "rewrite.messages":
+    #        remove all players from {_signedMsg}
 
     set {_merge} to merge components {_m::*}
     set async chat format to {_merge}
