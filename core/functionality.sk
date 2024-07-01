@@ -43,6 +43,12 @@ on load:
     if {RIPM::*} is not set:
         set {RIPM::*} to all items
 
+command timeskip:
+    cooldown: 5 minutes
+    trigger:
+        give or drop player 1 of random element out of {RIPM::*}
+        play sound "entity.experience_orb.pickup" to player
+
 # blacklist
 
 command blacklist <text>:
