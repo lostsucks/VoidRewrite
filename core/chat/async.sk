@@ -9,7 +9,8 @@ on async chat:
     set {_asyncMsg} to formatted async chat message
     set {_signedMsg} to signed chat message
 
-    send {_asyncMsg} to player
+    if {_prestige} is not set:
+        set {_prestige} to romanized 1
 
     set {_m::1} to "&5[&d1-1&5] &r%hex fixed player's prefix%%player's name%&7: "
     set {_m::2} to "&f%{_asyncMsg}%"
@@ -20,3 +21,20 @@ on async chat:
 
     set {_merge} to merge components {_m::*}
     set async chat format to {_merge}
+
+# romainzed
+
+expression roman[ize[d]] [numeral] [(of|from)] %integers%:
+    get:
+        set {_roman::numerals::*} to ("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+        set {_roman::values::*} to (1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+        
+        loop exprs-1:
+            clear {_numeral::*}
+            set {_i} to loop-value
+            loop (size of {_roman::values::*}) times:
+                while {_i} >= {_roman::values::%loop-value-2%}:
+                    subtract {_roman::values::%loop-value-2%} from {_i}
+                    add {_roman::numerals::%loop-value-2%} to {_numeral::*}
+            add (join {_numeral::*} using "") to {_return::*}
+        return {_return::*}
