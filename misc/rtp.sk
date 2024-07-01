@@ -1,0 +1,44 @@
+# rewrite.wandRtp - 1000
+# rewrite.sageRtp - 2000
+# rewrite.mysticRtp - 3000
+# rewrite.avelynRtp - 4000
+# rewrite.occultRtp - 5000
+# rewrite.archmageRtp - 10000
+
+command /rtp:
+    trigger:
+        if player has permission "rewrite.wandRtp":
+            set {_radius} to 1000
+        else if player has permission "rewrite.sageRtp":
+            set {_radius} to 2000
+        else if player has permission "rewrite.mysticRtp":
+            set {_radius} to 3000
+        else if player has permission "rewrite.avelynRtp":
+            set {_radius} to 4000
+        else if player has permission "rewrite.occultRtp":
+            set {_radius} to 5000
+        else if player has permission "rewrite.archmageRtp":
+            set {_radius} to 10000
+        else:
+            set {_radius} to 500
+        loop 5 times:
+            set {_x} to random integer from -{_radius} to {_radius}
+            set {_z} to random integer from -{_radius} to {_radius}
+            set {_loc} to location({_x}, player's y coordinate, {_z}, player's world)
+
+            if "%region at {_loc}%" does not contain "spawn":
+
+                send with prefix "Teleporting in &d3 seconds"
+                wait 1 second
+                send with prefix "Teleporting in &d2 seconds"
+                wait 1 second
+                send with prefix "Teleporting in &d1 second"
+                wait 1 second
+
+                teleport player to {_loc}
+                set block below player to obsidian
+
+                send with prefix "Teleported to a random location!"
+                exit loop
+        
+
