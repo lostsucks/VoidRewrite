@@ -1,0 +1,43 @@
+# auto giveaways
+
+every 20 minutes:
+    set {_p} to random element out of all players
+    console command "giveaway roll %{_p}%"
+    wait 6 seconds
+    console command "giveaway payout %{_p}% %random integer between 1000 and 5000%"
+
+command giveaway <text> [<player>] [<integer>]:
+    permission: giveaway    
+    trigger:
+        if arg-1 = "roll":
+            set {_wait} to 0.1
+            set {_d} to "."
+            loop 30 times:
+                set {_p} to random element out of all players
+                
+                send title "&d&lROLLING%{_d}%" with subtitle "&7⭐ &d%{_p}% &7⭐" to all players with fadein 0 ticks
+                play sound "block.note_block.bit" with pitch 3 to all players
+                wait "%{_wait}% ticks" parsed as timespan
+                add 0.35 to {_wait}
+                
+                if {_d} = ".":
+                    set {_d} to ".."
+                else if {_d} = "..":
+                    set {_d} to "..."
+                else if {_d} = "...":
+                    set {_d} to "."
+
+            wait 1 tick
+            set {_p} to arg-2 if arg-2 is set
+            set {_p} to random element out of all players if arg-2 is not set
+
+            send title "&d&lWINNER!" with subtitle "&7⭐ &d%{_p}% &7⭐" to all players with fadein 0 ticks
+            play sound "entity.player.levelup" to all players
+        else if arg-1 is "payout":
+            if arg-2 and arg-3 is set:
+                add arg-3 to the balance of arg-2
+                send action bar "&7You have been given &d$%arg-3% &7by the server for winning the giveaway!" to arg-2
+            else:
+                send "&cUsage: /giveaway payout <player> <amount>"
+        else:
+            send "&cUsage: /giveaway <roll|payout> [player] [amount]"
