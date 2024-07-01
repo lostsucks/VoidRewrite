@@ -1,0 +1,50 @@
+on join:
+    if int tag "custom;Level" of nbt compound of player is not set:
+        set int tag "custom;Level" of nbt compound of player to 1
+    if int tag "custom;Prestige" of nbt compound of player is not set:
+        set int tag "custom;Prestige" of nbt compound of player to 1
+    if double tag "custom;Xp" of nbt compound of player is not set:
+        set double tag "custom;Xp" of nbt compound of player to 0
+    if double tag "custom;NextXp" of nbt compound of player is not set:
+        set double tag "custom;NextXp" of nbt compound of player to 25
+
+on death:
+    if victim and attacker is a player:
+        set {_xp} to (random number between 5 and 10)
+        add {_xp} to double tag "custom;Xp" of nbt compound of attacker
+        send action bar "&d+%{_xp}% &7XP" to attacker for 2 seconds
+        if double tag "custom;Xp" of nbt compound of attacker >= double tag "custom;NextXp" of nbt compound of attacker:
+            send title "&d&lLEVEL UP!" with subtitle "&7You are now level &d%int tag "custom;Level" of nbt compound of attacker+1%&7!" to attacker
+            add 1 to int tag "custom;Level" of nbt compound of attacker
+            add 25 to double tag "custom;NextXp" of nbt compound of attacker
+            set double tag "custom;Xp" of nbt compound of attacker to 0
+
+command level [<player>]:
+    trigger:
+        if arg-1 is not set:
+            set {_level} to int tag "custom;Level" of nbt compound of player
+            set {_prestige} to romanized int tag "custom;Prestige" of nbt compound of player
+            set {_xp} to double tag "custom;Xp" of nbt compound of player
+            send "%nl%%prefix%You are level &d%{_level}% &7(&d%{_prestige}%&7) with &d%{_xp}% &7XP%nl%&r"
+        else:
+            set {_level} to int tag "custom;Level" of nbt compound of arg-1
+            set {_prestige} to romanized int tag "custom;Prestige" of nbt compound of arg-1
+            set {_xp} to double tag "custom;Xp" of nbt compound of arg-1
+            send "%nl%%prefix%&e%arg-1% &7is level &d%{_level}% &7(&d%{_prestige}%&7) with &d%{_xp}% &7XP%nl%&r"
+
+command prestige:
+    trigger:
+        set {_level} to int tag "custom;Level" of nbt compound of player
+        set {_prestige} to romanized int tag "custom;Prestige" of nbt compound of player
+        set {_xp} to double tag "custom;Xp" of nbt compound of player
+        set {_nextXp} to double tag "custom;NextXp" of nbt compound of player
+
+        if {_level} >= 100:
+            add 1 to int tag "custom;Prestige" of nbt compound of player
+            set int tag "custom;Level" of nbt compound of player to 1
+            set double tag "custom;Xp" of nbt compound of player to 0
+            set double tag "custom;NextXp" of nbt compound of player to 25
+            send title "&d&lPRESTIGE!" with subtitle "&7You are now prestige &d%{_prestige}%&7!" to player
+            broadcast "%nl%%hex fixed player's prefix%%player's name% &7has prestiged to level &d%{_prestige}%&7!%nl%&r"
+        else:
+            send "&cYou must be level 100 to prestige!"
