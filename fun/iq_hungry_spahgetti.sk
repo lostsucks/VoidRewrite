@@ -13,6 +13,6 @@ command imhungry:
         set {_food} to random element out of {_list::*}
         send "&7You are hungry for &e%{_food}%&7."
 
-send spahgetti:
+command spahgetti:
     trigger:
         send "&4Parmesan, sir?" to player
