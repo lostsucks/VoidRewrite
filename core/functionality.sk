@@ -36,12 +36,16 @@ command toggle:
 every {@toggle} second:
     if boolean tag "custom;Toggle" of nbt compound of player is true:
         loop all players:
-            if {RIPM::*} is set:
-                give player 1 of random element from {RIPM::*}
+            if boolean tag "custom;autoDrop" of nbt compound of loop-player is false:
+                give or drop player 1 of random element out of {RIPM::*}
                 play sound "entity.experience_orb.pickup" to player
             else:
-                give player 1 of random element out of all items
-                play sound "entity.experience_orb.pickup" to player
+                drop 1 of random element out of {RIPM::*} at player
+                play sound "entity.experience_orb.pickup" to player   
+
+on load:
+    if {RIPM::*} is not set:
+        set {RIPM::*} to all items
 
 # blacklist
 
