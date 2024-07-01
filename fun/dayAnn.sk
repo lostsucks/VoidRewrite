@@ -1,0 +1,3 @@
+at 6:00 in "world":
+    broadcast "&eGood Morning! &6🔅" with subtitle "&7It is day &f%{days}+1850%" to all players for 3 seconds
+    add 1 to {days}

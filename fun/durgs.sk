@@ -1,0 +1,7 @@
+command durg:
+    aliases: durgs
+    cooldown: 1 minute
+    cooldown message: "&cLet the drugs wear off before you take more."
+    trigger:
+        apply nausea potion of tier 5 to the player for 10 seconds
+        send action bar "&7You took some durgs."

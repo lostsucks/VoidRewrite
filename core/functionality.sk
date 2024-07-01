@@ -1,0 +1,94 @@
+# dupe/toggle/blacklist/ripm
+
+# ripm new
+
+command ripm <text>:
+    permission: ripm
+    trigger:
+        if arg-1 = "add":
+            add player's tool to {RIPM::*}
+            send "&7Added &e%player's tool% &7to the RIPM."
+        else if arg-1 = "remove":
+            remove player's tool from {RIPM::*}
+            send "&7Removed &e%player's tool% &7from the RIPM."
+        else if arg-1 = "fullReset":
+            delete {RIPM::*}
+            send "&7RIPM has been &efully &7reset."
+        else if arg-1 = "reset":
+            set {RIPM::*} to all items
+            send "&7RIPM has been &ereset."
+
+on tab complete of "ripm":
+    set tab completions for position 1 to "add", "remove", "fullReset" and "reset"
+
+# toggle
+
+command toggle:
+    aliases: t
+    trigger:
+        if boolean tag "custom;Toggle" of nbt compound of player is true:
+            clear boolean tag "custom;Toggle" of nbt compound of player
+            send action bar "&7Toggled &cOFF &7random items."
+        else:
+            set boolean tag "custom;Toggle" of nbt compound of player to true
+            send action bar "&7Toggled &aON &7random items."
+
+every {@toggle} second:
+    if boolean tag "custom;Toggle" of nbt compound of player is true:
+        loop all players:
+            if {RIPM::*} is set:
+                give player 1 of random element from {RIPM::*}
+                play sound "entity.experience_orb.pickup" to player
+            else:
+                give player 1 of random element out of all items
+                play sound "entity.experience_orb.pickup" to player
+
+# blacklist
+
+command blacklist <text>:
+    permission: blacklist
+    trigger:
+        if arg-1 = "add":
+            add type of player's tool to {blacklist::*}
+            send "&7Added &e%player's tool% &7to the blacklist."
+        else if arg-1 = "remove":
+            remove type of player's tool from {blacklist::*}
+            send "&7Removed &e%player's tool% &7from the blacklist."
+        else if arg-1 = "reset":
+            delete {blacklist::*}
+            send "&7Blacklist has been &efully &7reset."
+
+on tab complete of "blacklist":
+    set tab completions for position 1 to "add", "remove" and "reset"
+
+# dupe
+
+command dupe:
+    trigger:
+        if player's tool is air:
+            send action bar "&cYou must be holding an item to dupe it."
+            play sound "entity.villager.no" to player
+            stop
+
+        if player's tool is in {blacklist::*}:
+            send action bar "&cYou can't dupe this item."
+            play sound "entity.villager.no" to player
+            stop
+
+        if player's tool is any shulker box:
+            set {_nbt::*} to compound list tag "tag;BlockEntityTag;Items" of full nbt compound of player's tool
+            loop item from nbt {_nbt::*}:
+                set {_item} to loop-value
+                if {blacklist::*} contains type of {_item}:
+                    send action bar "&cYou can't dupe this item."
+                    play sound "entity.villager.no" to player
+                    stop
+
+        set {_item} to player's tool
+        set {_amount} to amount of {_item} in player's inventory if player has permission "rewrite.dupeInv"
+        set {_amount} to item amount of {_item} if player does not have permission "rewrite.dupeInv"
+
+        give player {_amount} of {_item}
+        play sound "block.note_block.pling" to player
+        add 1 to {globalDupes}
+

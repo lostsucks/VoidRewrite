@@ -1,0 +1,18 @@
+command iq <player>:
+    cooldown: 10 minutes
+    trigger:
+        set {_iq} to random integer between 1 and 200
+        set {_a::*} to "a", "b", "c", "d" and "e"
+        set {_a} to random element out of {_a::*}
+        broadcast "&7%player%&7's IQ is &%{_a}%%{_iq}%&7."
+
+command imhungry:
+    cooldown: 10 minutes
+    trigger:
+        set {_list} to "spahgetti", "apple", "banana", "orange", "grape", "strawberry", "blueberry", "raspberry", "blackberry", "kiwi", "watermelon", "cantaloupe", "pineapple", "mango", "peach", "pear", "plum", "cherry", "coconut"
+        set {_food} to random element out of {_list::*}
+        send "&7You are hungry for &e%{_food}%&7."
+
+send spahgetti:
+    trigger:
+        send "&4Parmesan, sir?" to player
