@@ -1,0 +1,7 @@
+expression with prefix %string%:
+    get:
+        return "&d&lVOID11 &8» &r%expr-1%"
+
+expression prefix:
+    get:
+        return "&d&lVOID11 &8» &r"
