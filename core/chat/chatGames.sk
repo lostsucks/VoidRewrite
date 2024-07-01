@@ -1,2 +1,62 @@
+every 5 minutes:
+    chatGame()
+
+on load:
+    clear {chatgamewords::*}
+    add "apple" to {chatgamewords::*}
+    add "banana" to {chatgamewords::*}
+    add "cherry" to {chatgamewords::*}
+    add "void11" to {chatgamewords::*}
+    add "skibidi" to {chatgamewords::*}
+    add "rizz" to {chatgamewords::*}
+    add "sigma" to {chatgamewords::*}
+    add "lostypoo" to {chatgamewords::*}
+    add "durgs" to {chatgamewords::*}
+    add "gronk" to {chatgamewords::*}
+    add "vulcan" to {chatgamewords::*}
+    add "grim" to {chatgamewords::*}
+    add "dank" to {chatgamewords::*}
+
+    delete {chatGame::*}
+
 function chatGame():
-    # a
+    if {chatGame::active} = true:
+        broadcast "%nl%%prefix% &fChat Game has ended!%nl%%prefix%&fThe answer was &d%{chatGame::answer}%%nl%&r"
+        set {chatGame::active} to false
+        stop
+
+    delete {chatGame::*}
+
+    set {chatGame::active} to true
+    broadcast "%nl%&f> &cC&6H&eA&aT &bG&dA&cM&6E &f<%nl%&r"
+    
+    set {_n} to random integer from 1 to 2
+    if {_n} = 1:
+        set {_digit1} to random integer from 5 to 150
+        set {_digit2} to random integer from 5 to 150
+        set {chatGame::answer} to "%{_digit1} * {_digit2}%"
+        broadcast "&7The first to &ccalculate &f%{_digit1}% * %{_digit2}%"
+        broadcast "&7and say the answer wins!%nl%&r"
+    else if {_n} = 2:
+        set {_string} to random element out of {chatgamewords::*}
+        set {chatGame::answer} to {_string}
+        set {_shuffled::*} to {_string} split at ""
+        set {_shuffled::*} to shuffled {_shuffled::*}
+        set {_s} to merge components {_shuffled::*}
+        broadcast "&7The first to &cunshuffle &f%{_s}%"
+        broadcast "&7back to the right order wins!%nl%&r"
+
+    set {chatGame::time} to now
+
+function award(p: player):
+    
+    broadcast "%hex fixed player's prefix%%player's name% &7correctly answered%nl%&8'&b%{chatGame::answer}%&8' in &dtimesincePlaceholder&7!%nl%&r"
+    
+    add 250 to {balance::%uuid of {_p}%}
+    send action bar "&7+&a$250" to {_p}
+    delete {chatGame::*}
+
+on chat:
+    if {chatGame::active} = true:
+        if message contains {chatGame::answer}:
+            award(player)
