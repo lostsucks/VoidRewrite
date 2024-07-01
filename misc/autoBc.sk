@@ -1,0 +1,28 @@
+every 5 minutes:
+    set {_a} to random integer from 1 to 3
+    if {_a} is 1:
+        broadcast " "
+        broadcast "    &d&lVOID11 &8● &d&lDISCORD"
+        broadcast " "
+        broadcast "  &8» &dJoin giveaways &fand be &dnotified &fof &dnew updates&f!"
+        broadcast "  &8» &dApply &ffor &dstaff &fto help the community!"
+        broadcast "   "
+        broadcast "  &8» &d&l<link:https://discord.gg/avelith>DISCORD.GG/AVELITH &8« &7Click!"
+        broadcast " "
+    else if {_a} is 2:
+        broadcast " "
+        broadcast "    &c&lVOID11 &8● &c&lSTORE"
+        broadcast " "
+        broadcast "  &8» &cGet &fexclusive &cperks &ffor &ccheap&f!"
+        broadcast "  &8» &cSupport &fthe &cserver &fby &cpurchasing &fitems!"
+        broadcast "   "
+        broadcast "  &8» &c&l<link:https://store.avelith.net>STORE.AVELITH.NET &8« &7Click!"
+        broadcast " "
+    else if {_a} is 3: # ad in minehut l
+        broadcast " "
+        broadcast "    &c&lADVERTISE &8● &c&lREMINDER"
+        broadcast " "
+        broadcast "  &8» &fUse &c/mh &fto join the &cMinehut Lobby &fand &cadvertise!"
+        broadcast "  &8» &fWe aren't allowed to reward you, but it is appreciated!"
+        broadcast "  &8» &fNeed the ad? Join our &cdiscord &fvia &c/discord &fto get it!"
+        broadcast " "
