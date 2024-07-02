@@ -5,3 +5,7 @@ expression with prefix %string%:
 expression prefix:
     get:
         return "&d&lVOID11 &8» &r"
+
+expression hex fix[ed] %string%:
+    get:
+        return colored expr-1.replaceAll("&##([a-fA-F0-9]{6})", "<##$1>")
