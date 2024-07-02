@@ -1,0 +1,25 @@
+# /trash
+
+command trash:
+    trigger:
+        set metadata tag "trash" of player to chest inventory with 6 rows named "&0Trash Can"
+        open (metadata tag "trash" of player) to player
+
+# end notice
+
+on player world change:
+    event-world is "world_the_end"
+    send title "&d&lThe End" with subtitle "&7Keep Inventory is &d&lOFF" to player for 5 seconds
+
+# /discord
+
+command discord:
+    trigger:
+        send " " to player
+        send "    &d&lVOID11 &8● &d&lDISCORD" to player
+        send " " to player
+        send "  &8» &dJoin giveaways &fand be &dnotified &fof &dnew updates&f!" to player
+        send "  &8» &dApply &ffor &dstaff &fto help the community!" to player
+        send "   " to player
+        send "  &8» &d&l<link:https://discord.gg/avelith>DISCORD.GG/AVELITH &8« &7Click!" to player
+        send " " to player
