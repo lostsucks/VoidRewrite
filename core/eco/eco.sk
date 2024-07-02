@@ -1,0 +1,105 @@
+# double tag "custom;Balance" of nbt compound of player
+
+command economy <text> [<player>] [<number>]:
+    permission: rewrite.Eco
+    trigger:
+        if arg-1 = "add" or "give":
+            if arg-2 and arg-3 is set:
+                add (arg-3) to arg-2's balance
+                send with prefix "Added &d&l$%arg-3% &fto &d%arg-2%'s &fbalance." to player
+                send with prefix "&d%player% &fhas given you &d&l$%arg-3%&f." to arg-2
+            else:   
+                send usage to player
+        else if arg-1 = "remove" or "take":
+            if arg-2 and arg-3 is set:
+                remove (arg-3) from arg-2's balance
+                send with prefix "Removed &d&l$%arg-3% &ffrom &d%arg-2%'s &fbalance." to player
+                send with prefix "&d%player% &fhas taken &d&l$%arg-3%&f." to arg-2
+            else:
+                send usage to player
+        else if arg-1 = "set":
+            if arg-2 and arg-3 is set:
+                set arg-2's balance to arg-3
+                send with prefix "Set &d%arg-2%'s &fbalance to &d&l$%arg-3%&f." to player
+                send with prefix "&d%player% &fhas set your balance to &d&l$%arg-3%&f." to arg-2
+            else:
+                send usage to player
+        else if arg-1 = "clear" or "reset":
+            if arg-2 is set:
+                clear arg-2's balance
+                send with prefix "Cleared &d%arg-2%'s &fbalance." to player
+                send with prefix "&d%player% &fhas cleared your balance." to arg-2
+            else:
+                send usage to player
+        else:
+            send usage to player
+
+# expressions/effects
+
+effect:
+    patterns:
+        set [the] bal[ance][s] of %players% to %number%
+        set [the] %player%'s bal[ance] to %number%
+    parse:
+        if double tag "custom;Balance" of nbt compound of expr-1 is not set:
+            set double tag "custom;Balance" of nbt compound of expr-1 to 0
+    trigger:
+        set double tag "custom;Balance" of nbt compound of expr-1 to expr-2
+
+effect:
+    patterns:
+        add %number% to [the] bal[ance][s] of %players%
+        add %number% to [the] %player%'s bal[ance]
+    parse:
+        if double tag "custom;Balance" of nbt compound of expr-2 is not set:
+            set double tag "custom;Balance" of nbt compound of expr-2 to 0
+    trigger:
+        add expr-1 to double tag "custom;Balance" of nbt compound of expr-2
+
+effect:
+    patterns:
+        remove %number% from [the] bal[ance][s] of %players%
+        remove %number% from [the] %player%'s bal[ance]
+    parse:
+        if double tag "custom;Balance" of nbt compound of expr-2 is not set:
+            set double tag "custom;Balance" of nbt compound of expr-2 to 0
+    trigger:
+        remove expr-1 from double tag "custom;Balance" of nbt compound of expr-2
+
+effect:
+    patterns:
+        clear [the] bal[ance][s] of %players%
+        clear [the] %player%'s bal[ance]
+    trigger:
+        set double tag "custom;Balance" of nbt compound of expr-1 to 0
+
+expression:
+    patterns:
+        [the] bal[ance] of %players%
+        [the] %player%'s bal[ance]
+    get:
+        return double tag "custom;Balance" of nbt compound of expr-1
+
+# bal
+
+command balance [<player>]:
+    aliases: bal
+    trigger:
+        if arg-1 is set:
+            send "%nl%&d%arg-1%'s &fBalance:%nl%  &7» &a$%arg-1's balance%%nl%&r" to player
+        else:
+            send "%nl%&dYour &fBalance:%nl%  &7» &a$%player's balance%%nl%&r" to player
+
+# pay
+
+command pay <player> <number>:
+    trigger:
+        if arg-2 <= 0:
+            send "&cYou can't pay a negative amount." to player
+        else if arg-2 > player's balance:
+            send "&cYou don't have enough money." to player
+        else:
+            remove arg-2 from player's balance
+            add arg-2 to arg-1's balance
+            send with prefix "&fYou have paid &d%arg-2% &fto &d%arg-1%&f." to player
+            send with prefix "&d%player% &fhas paid you &d%arg-2%&f." to arg-1
