@@ -5,6 +5,7 @@
 # rewrite.occultRtp - 5000
 # rewrite.archmageRtp - 10000
 
+
 command /rtp:
     trigger:
         if player has permission "rewrite.wandRtp":
@@ -22,8 +23,8 @@ command /rtp:
         else:
             set {_radius} to 500
         loop 5 times:
-            set {_x} to random integer from -{_radius} to {_radius}
-            set {_z} to random integer from -{_radius} to {_radius}
+            set {_x} to random integer from (-1 * {_radius}) to {_radius}
+            set {_z} to random integer from (-1 * {_radius}) to {_radius}
             set {_loc} to location({_x}, player's y coordinate, {_z}, player's world)
 
             if "%region at {_loc}%" does not contain "spawn":
