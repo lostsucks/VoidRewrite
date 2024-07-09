@@ -46,7 +46,7 @@ on load:
 command timeskip:
     cooldown: 5 minutes
     trigger:
-        give or drop player 1 of random element out of {RIPM::*}
+        give player 1 of random element out of {RIPM::*}
         play sound "entity.experience_orb.pickup" to player
 
 # blacklist
@@ -76,7 +76,7 @@ command dupe:
             play sound "entity.villager.no" to player
             stop
 
-        if player's tool is in {blacklist::*}:
+        if {blacklist::*} contains player's tool:
             send action bar "&cYou can't dupe this item."
             play sound "entity.villager.no" to player
             stop
