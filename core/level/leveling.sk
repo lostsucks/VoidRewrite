@@ -12,7 +12,7 @@ on death:
     if victim and attacker is a player:
         set {_xp} to (random number between 5 and 10)
         add {_xp} to double tag "custom;Xp" of nbt compound of attacker
-        send action bar "&d+%{_xp}% &7XP" to attacker for 2 seconds
+        send action bar "&d+%{_xp}% &7XP" to attacker
         if double tag "custom;Xp" of nbt compound of attacker >= double tag "custom;NextXp" of nbt compound of attacker:
             send title "&d&lLEVEL UP!" with subtitle "&7You are now level &d%int tag "custom;Level" of nbt compound of attacker+1%&7!" to attacker
             add 1 to int tag "custom;Level" of nbt compound of attacker
