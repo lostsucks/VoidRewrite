@@ -23,6 +23,9 @@ on tab complete of "ripm":
 
 # toggle
 
+options:
+    toggle: 20
+
 command toggle:
     aliases: t
     trigger:
@@ -33,11 +36,11 @@ command toggle:
             set boolean tag "custom;Toggle" of nbt compound of player to true
             send action bar "&7Toggled &aON &7random items."
 
-every {@toggle} second:
+every {@toggle} seconds:
     if boolean tag "custom;Toggle" of nbt compound of player is true:
         loop all players:
-            give or drop player 1 of random element out of {RIPM::*}
-            play sound "entity.experience_orb.pickup" to player  
+            give loop-player random element out of {RIPM::*}
+            play sound "entity.experience_orb.pickup" to loop-player  
 
 on load:
     if {RIPM::*} is not set:
