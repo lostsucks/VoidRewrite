@@ -40,9 +40,6 @@ effect:
     patterns:
         set [the] bal[ance][s] of %players% to %number%
         set [the] %player%'s bal[ance] to %number%
-    parse:
-        if double tag "custom;Balance" of nbt compound of expr-1 is not set:
-            set double tag "custom;Balance" of nbt compound of expr-1 to 0
     trigger:
         set double tag "custom;Balance" of nbt compound of expr-1 to expr-2
 
@@ -50,9 +47,6 @@ effect:
     patterns:
         add %number% to [the] bal[ance][s] of %players%
         add %number% to [the] %player%'s bal[ance]
-    parse:
-        if double tag "custom;Balance" of nbt compound of expr-2 is not set:
-            set double tag "custom;Balance" of nbt compound of expr-2 to 0
     trigger:
         add expr-1 to double tag "custom;Balance" of nbt compound of expr-2
 
@@ -60,9 +54,6 @@ effect:
     patterns:
         remove %number% from [the] bal[ance][s] of %players%
         remove %number% from [the] %player%'s bal[ance]
-    parse:
-        if double tag "custom;Balance" of nbt compound of expr-2 is not set:
-            set double tag "custom;Balance" of nbt compound of expr-2 to 0
     trigger:
         remove expr-1 from double tag "custom;Balance" of nbt compound of expr-2
 
