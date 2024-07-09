@@ -1,0 +1,24 @@
+command bounty <text> <offlineplayer> [<number>]:
+    cooldown: 1 minute
+    cooldown message: &fWait a while..
+    trigger:
+
+        set {_bounty} to double tag "custom;Bounty" of nbt compound of arg-2
+
+        if arg-1 = "add":
+            if arg-3 is set:
+                arg-2 is online
+                if {_balance} >= arg-3:
+                    add arg-3 to {_bounty}
+                    remove arg-3 from player's balance
+                    send "&fYou have added &a$%arg-3% &fto &a%arg-2%'s &fbounty." to player
+                    send title "&e⚠" with subtitle "&a$%arg-3% &fwas added to your &cBounty." to arg-2
+                else:
+                    send "&cYou don't have enough money." to player
+            else:
+                send "&cPlease specify the amount to add." to player
+        if arg-1 = "amount":
+            send "&f%arg-2%'s &fbounty is &a$%{_bounty}%" to player
+        if arg-1 = "clear":
+            set {_bounty} to 0
+            send "&fYou have cleared &a%arg-2%'s &fbounty." to player
