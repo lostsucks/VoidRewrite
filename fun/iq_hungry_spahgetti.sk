@@ -9,7 +9,7 @@ command iq <player>:
 command imhungry:
     cooldown: 10 minutes
     trigger:
-        set {_list} to "spahgetti", "apple", "banana", "orange", "grape", "strawberry", "blueberry", "raspberry", "blackberry", "kiwi", "watermelon", "cantaloupe", "pineapple", "mango", "peach", "pear", "plum", "cherry", "coconut"
+        set {_list::*} to "spahgetti", "apple", "banana", "orange", "grape", "strawberry", "blueberry", "raspberry", "blackberry", "kiwi", "watermelon", "cantaloupe", "pineapple", "mango", "peach", "pear", "plum", "cherry" and "coconut"
         set {_food} to random element out of {_list::*}
         send "&7You are hungry for &e%{_food}%&7."
 
