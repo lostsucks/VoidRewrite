@@ -35,7 +35,7 @@ command giveaway <text> [<player>] [<integer>]:
             play sound "entity.player.levelup" to all players
         else if arg-1 is "payout":
             if arg-2 and arg-3 is set:
-                add arg-3 to the balance of arg-2
+                add arg-3 to arg-2's balance
                 send action bar "&7You have been given &d$%arg-3% &7by the server for winning the giveaway!" to arg-2
             else:
                 send "&cUsage: /giveaway payout <player> <amount>"
