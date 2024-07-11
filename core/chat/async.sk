@@ -11,7 +11,7 @@ on async chat:
     if {_prestige} is not set:
         set {_prestige} to romanized 1
 
-    set {_m::1} to "&5[&d1-1&5] &r%hex fixed player's prefix%%player's name%&7: "
+    set {_m::1} to "&5[&d%{_prestige}%-%{_level}%&5] &r%hex fixed player's prefix%%player's name%&7: "
     set {_m::2} to "&f%{_asyncMsg}%"
 
     set {_merge} to merge components {_m::*}
