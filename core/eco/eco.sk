@@ -69,6 +69,8 @@ expression:
         [the] bal[ance] of %players%
         [the] %player%'s bal[ance]
     get:
+        if double tag "custom;Balance" of nbt compound of expr-1 is not set:
+            set double tag "custom;Balance" of nbt compound of expr-1 to 0
         return double tag "custom;Balance" of nbt compound of expr-1
 
 # bal
@@ -94,3 +96,83 @@ command pay <player> <number>:
             add arg-2 to arg-1's balance
             send with prefix "&fYou have paid &d%arg-2% &fto &d%arg-1%&f." to player
             send with prefix "&d%player% &fhas paid you &d%arg-2%&f." to arg-1
+
+# tokens
+
+command tokens [<player>]:
+    trigger:
+        if arg-1 is set:
+            send "%nl%&6%arg-1%'s &fTokens:%nl%  &7» &6⛁%arg-1's tokens%%nl%&r" to player
+        else:
+            send "%nl%&6Your &fTokens:%nl%  &7» &6⛁%player's tokens%%nl%&r" to player
+
+command tokeneco <text> [<player>] [<number>]:
+    permission: rewrite.Eco
+    trigger:
+        if arg-1 = "add" or "give":
+            if arg-2 and arg-3 is set:
+                add (arg-3) to arg-2's tokens
+                send with prefix "Added &6⛁%arg-3% &fto &6%arg-2%'s &fbalance." to player
+                send with prefix "&d%player% &fhas given you &6⛁%arg-3%&f." to arg-2
+            else:   
+                send usage to player
+        else if arg-1 = "remove" or "take":
+            if arg-2 and arg-3 is set:
+                remove (arg-3) from arg-2's tokens
+                send with prefix "Removed &6⛁%arg-3% &ffrom &6%arg-2%'s &fbalance." to player
+                send with prefix "&d%player% &fhas taken &6⛁%arg-3%&f." to arg-2
+            else:
+                send usage to player
+        else if arg-1 = "set":
+            if arg-2 and arg-3 is set:
+                set arg-2's tokens to arg-3
+                send with prefix "Set &6%arg-2%'s &fbalance to &6⛁%arg-3%&f." to player
+                send with prefix "&d%player% &fhas set your balance to &6⛁%arg-3%&f." to arg-2
+            else:
+                send usage to player
+        else if arg-1 = "clear" or "reset":
+            if arg-2 is set:
+                clear arg-2's tokens
+                send with prefix "Cleared &6%arg-2%'s &fbalance." to player
+                send with prefix "&d%player% &fhas cleared your balance." to arg-2
+            else:
+                send usage to player
+        else:
+            send usage to player
+
+effect:
+    patterns:
+        set [the] tok[en][s] of %players% to %number%
+        set [the] %player%'s tok[en][s] to %number%
+    trigger:
+        set double tag "custom;Tokens" of nbt compound of expr-1 to expr-2
+
+effect:
+    patterns:
+        add %number% to [the] tok[en][s] of %players%
+        add %number% to [the] %player%'s tok[en][s]
+    trigger:
+        add expr-1 to double tag "custom;Tokens" of nbt compound of expr-2
+
+effect:
+    patterns:
+        remove %number% from [the] tok[en][s] of %players%
+        remove %number% from [the] %player%'s tok[en][s]
+    trigger:
+        remove expr-1 from double tag "custom;Tokens" of nbt compound of expr-2
+
+effect:
+    patterns:
+        clear [the] tok[en][s] of %players%
+        clear [the] %player%'s tok[en][s]
+    trigger:
+        set double tag "custom;Tokens" of nbt compound of expr-1 to 0
+
+expression:
+    patterns:
+        [the] tok[en][s] of %players%
+        [the] %player%'s tok[en][s]
+    get:
+        if double tag "custom;Tokens" of nbt compound of expr-1 is not set:
+            set double tag "custom;Tokens" of nbt compound of expr-1 to 0
+        return double tag "custom;Tokens" of nbt compound of expr-1
