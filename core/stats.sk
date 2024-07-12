@@ -1,0 +1,26 @@
+expression:
+    patterns:
+        [the] %player%'s kills
+        [the] kills [count] of %player%
+    get:
+        if double tag "custom;Kills" of nbt compound of expr-1 is not set:
+            set double tag "custom;Kills" of nbt compound of expr-1 to 0
+        return double tag "custom;Kills" of nbt compound of expr-1
+
+expression:
+    patterns:
+        [the] %player%'s deaths
+        [the] deaths [count] of %player%
+    get:
+        if double tag "custom;Deaths" of nbt compound of expr-1 is not set:
+            set double tag "custom;Deaths" of nbt compound of expr-1 to 0
+        return double tag "custom;Deaths" of nbt compound of expr-1
+
+expression:
+    patterns:
+        [the] %player%'s prestige
+        [the] prestige [level] of %player%
+    get:
+        if double tag "custom;Prestige" of nbt compound of expr-1 is not set:
+            set double tag "custom;Prestige" of nbt compound of expr-1 to 0
+        return double tag "custom;Prestige" of nbt compound of expr-1
