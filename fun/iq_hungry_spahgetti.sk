@@ -4,7 +4,7 @@ command iq <player>:
         set {_iq} to random integer between 1 and 200
         set {_a::*} to "a", "b", "c", "d" and "e"
         set {_a} to random element out of {_a::*}
-        broadcast "&7%player%&7's IQ is &%{_a}%%{_iq}%&7."
+        broadcast formatted "&%{_a}%%player%&7's IQ is &%{_a}%%{_iq}%&7."
 
 command imhungry:
     cooldown: 10 minutes
