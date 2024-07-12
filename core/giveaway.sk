@@ -3,7 +3,7 @@
 every 20 minutes:
     set {_p} to random element out of all players
     console command "giveaway roll %{_p}%"
-    wait 6 seconds
+    wait 7 seconds
     console command "giveaway payout %{_p}% %random integer between 1000 and 5000%"
 
 command giveaway <text> [<player>] [<integer>]:
