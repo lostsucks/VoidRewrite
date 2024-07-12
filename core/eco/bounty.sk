@@ -1,6 +1,7 @@
 command bounty <text> <offlineplayer> [<number>]:
     cooldown: 1 minute
     cooldown message: &fWait a while..
+    cooldown bypass: op
     trigger:
 
         set {_bounty} to double tag "custom;Bounty" of nbt compound of arg-2
@@ -18,7 +19,9 @@ command bounty <text> <offlineplayer> [<number>]:
             else:
                 send "&cPlease specify the amount to add." to player
         if arg-1 = "amount":
-            send "&f%arg-2%'s &fbounty is &a$%{_bounty}%" to player
+            if {_bounty} is not set:
+                set {_bounty} to 0
+            send "%nl%&d%arg-2%'s &fBounty:%nl%  &7» &a$%{_bounty}%%nl%&r" to player
         if arg-1 = "clear":
             set {_bounty} to 0
             send "&fYou have cleared &a%arg-2%'s &fbounty." to player
