@@ -1,0 +1,57 @@
+
+function format(n: number) :: text:
+    set {_data} to "QT,18|Q,15|T,12|B,9|M,6|k,3"
+    loop split {_data} at "|":
+        set {_s::*} to split loop-value at ","
+        {_n} >= 10 ^ {_s::2} parsed as number
+        return "%{_n} / 10 ^ {_s::2} parsed as number%%{_s::1}%"
+    return "%{_n}%"
+
+effect update %player%'s scoreboard:
+    trigger:
+        set {onlineplayers} to number of all players
+        clear expr-1's board
+        set title of expr-1's board to "     &d&lVoid11 &7&l|&r %(mini message from "<gradient:##B031E4:##FF57E3>Season 16")%     "
+
+        set {_clantag} to placeholder "simpleclans_clan_color_tag" from expr-1
+        set {_clanrank} to placeholder "simpleclans_rank_name" from expr-1
+        set {_clansize} to placeholder "simpleclans_clan_size" from expr-1
+        set {_clanbal} to placeholder "simpleclans_clan_balance" from expr-1
+
+        if {_clantag} is not set:
+            set {_clantag} to "&7None"
+        if {_clanrank} is not set:
+            set {_clanrank} to "&7None"
+        if {_clansize} is not set:
+            set {_clansize} to "&7None"
+        if {_clanbal} is not set:
+            set {_clanbal} to "&7None"
+
+        set line 1 of expr-1's board to " "
+        set line 2 of expr-1's board to mini message from "<gradient:##B031E4:##FF57E3>%expr-1's name%"
+        set line 3 of expr-1's board to "  &7▶ &fCash: &a$%format(expr-1's balance)%"
+        set line 4 of expr-1's board to "  &7▶ &fTokens: &e⛁%format(expr-1's tokens)%"
+        set line 5 of expr-1's board to "  &7▶ &fKDR: &c%expr-1's kills%&7/&4%expr-1's deaths%"
+        set line 6 of expr-1's board to "  &7▶ &fPrestige: &6%expr-1's prestige%"
+        set line 7 of expr-1's board to " "
+
+        set line 8 of expr-1's board to "%(mini message from "<gradient:##B031E4:##FF57E3>Clan Info")% &7(%{_clantag}%&7)"
+        set line 9 of expr-1's board to "  &7▶ &fRank: %{_clanrank}%"
+        set line 10 of expr-1's board to "  &7▶ &fMembers: &b%{_clansize}%"
+        set line 11 of expr-1's board to "  &7▶ &fBank: &a%{_clanbal}%"
+
+        set line 12 of expr-1's board to " "
+        set line 13 of expr-1's board to mini message from "<gradient:##B031E4:##FF57E3>Server"
+
+        if tps from the last 1 minute >= 18:
+            set line 14 of expr-1's board to "  &7▶ &fTPS: &a%tps from the last 1 minute% &2(Good)"
+        else if tps from the last 1 minute >= 9:
+            set line 14 of expr-1's board to "  &7▶ &fTPS: &e%tps from the last 1 minute% &6(Moderate)"
+        else if tps from the last 1 minute >= 0:
+            set line 14 of expr-1's board to "  &7▶ &fTPS: &c%tps from the last 1 minute% &4(Bad)"
+
+        set line 15 of expr-1's board to " "
+
+every 5 seconds:
+    loop all players:
+        update loop-player's scoreboard
