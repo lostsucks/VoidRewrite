@@ -21,7 +21,7 @@ on load:
 
 function chatGame():
     if {chatGame::active} = true:
-        broadcast "%nl%%prefix% &fChat Game has ended!%nl%%prefix%&fThe answer was &d%{chatGame::answer}%%nl%&r"
+        broadcast "%nl%%prefix%&fChat Game has ended!%nl%%prefix%&fThe answer was &d%{chatGame::answer}%%nl%&r"
         set {chatGame::active} to false
         stop
 
