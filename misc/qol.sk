@@ -21,7 +21,7 @@ command discord:
         send "  &8» &dJoin giveaways &fand be &dnotified &fof &dnew updates&f!" to player
         send "  &8» &dApply &ffor &dstaff &fto help the community!" to player
         send "   " to player
-        send "  &8» &d&l<link:https://discord.gg/avelith>DISCORD.GG/AVELITH &8« &7Click!" to player
+        send "  &8» &d&l<link:https://discord.gg/JsFqDUENwc>DISCORD.GG/JsFqDUENwc &8« &7Click!" to player
         send " " to player
 
 # spawn
