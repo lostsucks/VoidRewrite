@@ -8,4 +8,4 @@ expression prefix:
 
 expression hex fix[ed] %string%:
     get:
-        return colored expr-1.replaceAll("&##([a-fA-F0-9]{6})", "<##$1>")
+        return colored expr-1.replaceAll("&#([a-fA-F0-9]{6})", "<#$1>")
