@@ -23,3 +23,31 @@ command discord:
         send "   " to player
         send "  &8» &d&l<link:https://discord.gg/avelith>DISCORD.GG/AVELITH &8« &7Click!" to player
         send " " to player
+
+# spawn
+
+command spawn [<player>]:
+    trigger:
+        if arg-1 is set:
+            if player has permission "spawn.others":
+                teleport arg-1 to {spawn}
+                send action bar with prefix "&7Teleported &d%arg-1% &7to spawn!" to player
+                play sound "entity.enderman.teleport" to arg-1
+            else:
+                send action bar with prefix "&cYou do not have permission to teleport others to spawn!" to player
+        else:
+            set {_cd} to 5 seconds
+            loop 5 times:
+                send action bar "&7Teleporting to spawn in %{_cd}%..." to player
+                remove 1 second from {_cd}
+                wait 1 second
+
+            teleport player to {spawn}
+            send action bar with prefix "&7Teleported to spawn!" to player
+            play sound "entity.enderman.teleport" to player
+
+command setspawn:
+    permission: op
+    trigger:
+        set {spawn} to player's location
+        send "&7Spawn location set to your current location!" to player
