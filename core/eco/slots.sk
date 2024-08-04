@@ -1,0 +1,119 @@
+options:
+    activeSlot: boolean tag "custom;ActiveSlot" of nbt compound
+
+# This code is recycled from Season 10
+
+on right click:
+    if event-block is {slot1}:
+        if {@activeSlot} of player is true:
+            send "&cPlease wait until your current slot machine is finished!"
+            cancel event
+        else:
+            if player's balance < 100:
+                play sound "entity.villager.no" to player
+                send "&cNot enough funds to use this slot machine!"
+                cancel event
+                stop
+            else:
+                remove 100 from player's balance
+                set {@activeSlot} of player to true
+                play sound "block.lever.click" to player
+                wait 2 ticks
+                play sound "entity.wither_skeleton.ambient" to player
+                wait 4 ticks
+                loop 10 times:
+                    play sound "block.note_block.cow_bell" to player
+                    wait 2 ticks
+                loop 5 times:
+                    play sound "block.note_block.cow_bell" to player
+                    wait 6 ticks
+                loop 3 times:
+                    play sound "block.note_block.cow_bell" to player
+                    wait 10 ticks
+                set {_slots} to a random integer between 1 and 2
+                wait 1 tick
+                if {_slots} = 1:
+                    play sound "item.totem.use" to player
+                    clear {@activeSlot} of player
+                    send title "&a&lWIN +$300" to player for 3 seconds
+                    add 300 to player's balance
+                else:
+                    play sound "entity.armor_stand.break" to player
+                    clear {@activeSlot} of player
+                    send title "&c&lLoss -$100" to player for 3 seconds
+    else if event-block is {slot2}:
+        if {@activeSlot} of player is true:
+            send "&cPlease wait until your current slot machine is finished!"
+            cancel event
+        else:
+            if player's balance < 500:
+                play sound "entity.villager.no" at player for player
+                send "&cNot enough funds to use this slot machine!"
+                cancel event
+                stop
+            else:
+                remove 500 from player's balance
+                set {@activeSlot} of player to true
+                play sound "block.lever.click" at player for player
+                wait 2 ticks
+                play sound "entity.wither_skeleton.ambient" at player for player
+                wait 4 ticks
+                loop 10 times:
+                    play sound "block.note_block.cow_bell" at player for player
+                    wait 2 ticks
+                loop 5 times:
+                    play sound "block.note_block.cow_bell" at player for player
+                    wait 6 ticks
+                loop 3 times:
+                    play sound "block.note_block.cow_bell" at player for player
+                    wait 10 ticks
+                set {_slots} to a random integer between 1 and 3
+                wait 1 tick
+                if {_slots} = 1:
+                    play sound "item.totem.use" at player for player
+                    clear {@activeSlot} of player
+                    send title "&a&lWIN +$2,000" to player for 3 seconds
+                    add 2000 to player's balance
+                else:
+                    play sound "entity.armor_stand.break" at player for player
+                    clear {@activeSlot} of player
+                    send title "&c&lLoss -$500" to player for 3 seconds
+
+    else if event-block is {slot3}:
+        if {@activeSlot} of player is true:
+            send "&cPlease wait until your current slot machine is finished!"
+            cancel event
+            stop
+        else:
+            if player's balance < 1000:
+                play sound "entity.villager.no" at player for player
+                send "&cNot enough funds to use this slot machine!"
+                cancel event
+                stop
+            else:
+                remove 1000 from player's balance
+                set {@activeSlot} of player to true
+                play sound "block.lever.click" at player for player
+                wait 2 ticks
+                play sound "entity.wither_skeleton.ambient" at player for player
+                wait 4 ticks
+                loop 10 times:
+                    play sound "block.note_block.cow_bell" at player for player
+                    wait 2 ticks
+                loop 5 times:
+                    play sound "block.note_block.cow_bell" at player for player
+                    wait 6 ticks
+                loop 3 times:
+                    play sound "block.note_block.cow_bell" at player for player
+                    wait 10 ticks
+                set {_slots} to a random integer between 1 and 5
+                wait 1 tick
+                if {_slots} = 1:
+                    play sound "item.totem.use" at player for player
+                    clear {@activeSlot} of player
+                    send title "&a&lWIN +$5,000" to player for 3 seconds
+                    add 5000 to player's balance
+                else:
+                    play sound "entity.armor_stand.break" at player for player
+                    clear {@activeSlot} of player
+                    send title "&c&lLoss -$1000" to player for 3 seconds
