@@ -6,12 +6,12 @@ options:
 on right click:
     if event-block is {slot1}:
         if {@activeSlot} of player is true:
-            send "&cPlease wait until your current slot machine is finished!"
+            send "&cPlease wait until your current slot machine is finished!" to player
             cancel event
         else:
             if player's balance < 100:
                 play sound "entity.villager.no" to player
-                send "&cNot enough funds to use this slot machine!"
+                send "&cNot enough funds to use this slot machine!" to player
                 cancel event
                 stop
             else:
@@ -43,12 +43,12 @@ on right click:
                     send title "&c&lLoss -$100" to player for 3 seconds
     else if event-block is {slot2}:
         if {@activeSlot} of player is true:
-            send "&cPlease wait until your current slot machine is finished!"
+            send "&cPlease wait until your current slot machine is finished!" to player
             cancel event
         else:
             if player's balance < 500:
                 play sound "entity.villager.no" at player for player
-                send "&cNot enough funds to use this slot machine!"
+                send "&cNot enough funds to use this slot machine!" to player
                 cancel event
                 stop
             else:
@@ -81,13 +81,13 @@ on right click:
 
     else if event-block is {slot3}:
         if {@activeSlot} of player is true:
-            send "&cPlease wait until your current slot machine is finished!"
+            send "&cPlease wait until your current slot machine is finished!" to player
             cancel event
             stop
         else:
             if player's balance < 1000:
                 play sound "entity.villager.no" at player for player
-                send "&cNot enough funds to use this slot machine!"
+                send "&cNot enough funds to use this slot machine!" to player
                 cancel event
                 stop
             else:
