@@ -50,7 +50,7 @@ function chatGame():
 
 function award(p: player):
     
-    broadcast "%hex fixed {_p}'s prefix%%{_p}'s name% &7correctly answered%nl%&8'&b%{chatGame::answer}%&8' in &dtimesincePlaceholder&7!%nl%&r"
+    broadcast "%{_p}'s name% &7correctly answered%nl%&7'&b%{chatGame::answer}%&7' &fin &d%time since {chatGame::time}%&7!%nl%&r"
     
     add 250 to {balance::%uuid of {_p}%}
     send action bar "&7+&a$250" to {_p}
