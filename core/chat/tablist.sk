@@ -14,7 +14,7 @@ effect update %player%'s scoreboard:
         set title of expr-1's board to "     &d&lVoid11 &7&l|&r %(mini message from "<gradient:##B031E4:##FF57E3>Season 16")%     "
 
         set {_clantag} to placeholder "simpleclans_clan_color_tag" from expr-1
-        set {_clanrank} to placeholder "simpleclans_rank_name" from expr-1
+        set {_clanrank} to placeholder "simpleclans_rank_displayname" from expr-1
         set {_clansize} to placeholder "simpleclans_clan_size" from expr-1
         set {_clanbal} to placeholder "simpleclans_clan_balance" from expr-1
 
