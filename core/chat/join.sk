@@ -2,7 +2,7 @@ on login:
     set join message to "&7[&a+&7] &7%player%"
 
 on first login:
-    set join message to "&7[&e+&7] &7%player%"
+    set join message to "&7[&e+&7] &7%player% &e#%placeholder "server_unique_joins"%"
 
 on logout:
     set logout message to "&7[&c-&7] &7%player%"
