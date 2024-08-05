@@ -1,0 +1,41 @@
+on command "/me":
+    cancel event
+    send action bar with prefix "You cannot use that command!"
+    stop
+
+on command "/minecraft:me":
+    cancel event
+    send action bar with prefix "You cannot use that command!"
+    stop
+
+on block place:
+    player is not op
+    if event-block = dispenser, bedrock, barrier, spawner, structure void, end portal frame, wither skeleton skull, oak boat, spruce boat, birch boat, jungle boat, acacia boat, dark oak boat, armor stand, any spawn egg or debug stick or sniffer egg, mangrove boat, mangrove boat with chest, minecart, minecart with chest, minecart with hopper, minecart with furnace, minecart with command block, light, command block, chain command block, repeating command block, jigsaw block, structure block, structure void, barrier, oak boat with chest, spruce boat with chest, birch boat with chest, jungle boat with chest, acacia boat with chest, dark oak boat with chest, reinforced deepslate, end crystal, infested stone, infested cobblestone, infested stone bricks, infested mossy stone bricks, infested cracked stone bricks, infested chiseled stone bricks, infested deepslate or tnt:
+        cancel event
+        send action bar with prefix "You cannot place that block!"
+        stop
+
+on right click:
+    player is not op
+    if player's offhand item is any spawn egg or debug stick or sniffer egg:
+        cancel event
+        send action bar with prefix "You cannot use that item!"
+    if player's held item is any spawn egg or debug stick or sniffer egg:
+        cancel event
+        send action bar with prefix "You cannot use that item!"
+
+on damage:
+    if victim is a player:
+        if type of attacker is end crystal:
+            cancel event
+
+on enter of region "spawn":
+    if player's vehicle is oak boat, spruce boat, birch boat, jungle boat, acacia boat, dark oak boat, bamboo raft, oak boat with chest, spruce boat with chest, birch boat with chest, jungle boat with chest, acacia boat with chest, dark oak boat with chest or bamboo raft with chest:
+        kill player's vehicle
+
+# oak boat, spruce boat, birch boat, jungle boat, acacia boat, dark oak boat, bamboo raft, oak boat with chest, spruce boat with chest, birch boat with chest, jungle boat with chest, acacia boat with chest, dark oak boat with chest or bamboo raft with chest
+
+every 20 seconds:
+    loop all boats:
+        if region at loop-entity is "spawn":
+            kill loop-entity
