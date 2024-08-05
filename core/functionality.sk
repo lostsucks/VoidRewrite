@@ -27,21 +27,21 @@ options:
     toggle: 20
 
 on join:
-    boolean tag "custom;Toggle" of nbt compound of player is not set
-    set boolean tag "custom;Toggle" of nbt compound of player to true
+    {-toggle::%uuid of player%} is not set
+    set {-toggle::%uuid of player%} to true
 
 command toggle:
     aliases: t
     trigger:
-        if boolean tag "custom;Toggle" of nbt compound of player is true:
-            set boolean tag "custom;Toggle" of nbt compound of player to false
+        if {-toggle::%uuid of player%} is true:
+            set {-toggle::%uuid of player%} to false
             send action bar with prefix "&7Toggled &cOFF&7."
         else:
-            set boolean tag "custom;Toggle" of nbt compound of player to true
+            set {-toggle::%uuid of player%} to true
             send action bar with prefix "&7Toggled &aON&7."
 
 every {@toggle} seconds:
-    if boolean tag "custom;Toggle" of nbt compound of player is true:
+    if {-toggle::%uuid of player%} is true:
         loop all players:
             give loop-player random element out of {RIPM::*}
             play sound "entity.experience_orb.pickup" to loop-player  
