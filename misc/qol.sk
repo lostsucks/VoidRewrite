@@ -51,3 +51,22 @@ command setspawn:
     trigger:
         set {spawn} to player's location
         send "&7Spawn location set to your current location!" to player
+
+# rules
+
+command rules:
+    trigger:
+        send " " to player
+        send with prefix "&fRules" to player
+        send " " to player
+        send "&7[<##B0CCFF>1&7] &fNo hacking or cheating" to player
+        send "&7[<##B9CCFE>2&7] &fNo spamming or advertising" to player
+        send "&7[<##C1CCFE>3&7] &fNo racism or hate speech" to player
+        send "&7[<##CACCFD>4&7] &fDo not block off spawn" to player
+        send "&7[<##D2CBFC>5&7] &fDo not spawn kill newbies/nakeds" to player
+        send "&7[<##DBCBFB>6&7] &fBe respectful to others" to player
+        send "&7[<##E3CBFB>7&7] &fNo asking for staff, /apply exists for a reason" to player
+        send "&7[<##ECCBFA>8&7] &fUse Common Sense" to player
+        send "&7[<##F4CBFA>9&7] &fDo not lavacast spawn, we know who you are." to player
+        send "&7[<##FCCAF9>10&7] &fBeing invisible doesn't hide you from us!" to player
+        send " " to player
