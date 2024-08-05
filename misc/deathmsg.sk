@@ -1,0 +1,6 @@
+on death:
+    if victim is a player:
+        if attacker is a player:
+            set death message to "&7[&c☠&7] &r%hex fixed victim's prefix%%victim's name% &7was slain by %hex fixed attacker's prefix%%attacker's name%&7!"
+        else:
+            set death message to "&7[&c☠&7] &r%hex fixed victim's prefix%%victim's name% &7died."
