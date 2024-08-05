@@ -19,6 +19,8 @@ on death:
             add 25 to double tag "custom;NextXp" of nbt compound of attacker
             set double tag "custom;Xp" of nbt compound of attacker to 0
 
+        add random number between 50 and 100 to victim's balance 
+
 command level [<player>]:
     trigger:
         if arg-1 is not set:
