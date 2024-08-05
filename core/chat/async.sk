@@ -18,6 +18,13 @@ on async chat:
         send action bar with prefix "You are muted!"
         play sound "entity.villager.no" to player
         stop
+    
+    loop {filter::*}:
+        if {_asyncMsg} contains loop-value:
+            cancel event
+            send action bar with prefix "Your message contains a banned word!"
+            play sound "entity.villager.no" to player
+            stop
 
     set {_m::1} to "&5[&d%{_prestige}%-%{_level}%&5] &r%hex fixed player's prefix%%player's name%&7: "
     set {_m::2} to "&f%{_asyncMsg}%"
