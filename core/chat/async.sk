@@ -19,6 +19,18 @@ on async chat:
         play sound "entity.villager.no" to player
         stop
 
+    if player has permission "chatemojis":
+        replace all ":skull:" in {_asyncMsg} with "&7☠&r"
+        replace all ":heart:" in {_asyncMsg} with "&c❤&r"
+        replace all ":star:" in {_asyncMsg} with "&e⭐&r"
+        replace all ":fire:" in {_asyncMsg} with "&6🔥&r"
+        replace all ":snowflake:" in {_asyncMsg} with "&b❄&r"
+        replace all ":lightning:" in {_asyncMsg} with "&6⚡&r"
+        replace all ":cloud:" in {_asyncMsg} with "&f☁&r"
+        replace all ":sun:" in {_asyncMsg} with "&e☀&r"
+        replace all ":smile:" in {_asyncMsg} with "&aツ&r"
+        replace all ":sad:" in {_asyncMsg} with "&9☹&r"
+
     set {_m::1} to "&5[&d%{_prestige}%-%{_level}%&5] &r%hex fixed player's prefix%%player's name%&7: "
     set {_m::2} to "&f%{_asyncMsg}%"
 
