@@ -36,7 +36,7 @@ effect update %player%'s scoreboard:
         set line 7 of expr-1's board to " "
 
         set line 8 of expr-1's board to "%(mini message from "<gradient:##B031E4:##FF57E3>Clan Info")% &7(%{_clantag}%&7)"
-        set line 9 of expr-1's board to "  &7▶ &fRank: %{_clanrank}%"
+        set line 9 of expr-1's board to "  &7▶ &fRank: %formatted {_clanrank}%"
         set line 10 of expr-1's board to "  &7▶ &fMembers: &b%{_clansize}%"
         set line 11 of expr-1's board to "  &7▶ &fBank: &a%{_clanbal}%"
 
@@ -55,3 +55,7 @@ effect update %player%'s scoreboard:
 every 5 seconds:
     loop all players:
         update loop-player's scoreboard
+
+on join:
+    set player's player list header to "%nl%&d&lVoid11 &7» %mini message from "<gradient:##B031E4:##FF57E3>Season 16"%%nl%&r" 
+    set player's player list footer to "%nl% &r &r &r &r &r &r &r &r &r &r &r &r &7&ovoid11.xyz &r &r &r &r &r &r &r &r &r &r &r &r %nl%&r "
