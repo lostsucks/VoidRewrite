@@ -25,3 +25,15 @@ command bounty <text> <offlineplayer> [<number>]:
         if arg-1 = "clear":
             set {_bounty} to 0
             send "&fYou have cleared &a%arg-2%'s &fbounty." to player
+
+on death:
+    if victim and attacker is a player:
+        set {_bounty} to double tag "custom;Bounty" of nbt compound of victim
+        if {_bounty} > 0:
+            add {_bounty} to attacker's balance
+            set double tag "custom;Bounty" of nbt compound of victim to 0
+            send "&fYou have claimed &a$%{_bounty}% &ffrom &a%victim%&f." to attacker
+            send "&fYour bounty was claimed by &a%attacker%&f." to victim
+        else:
+            send "&cYou don't have a bounty." to victim
+        set double tag "custom;Bounty" of nbt compound of victim to 0
