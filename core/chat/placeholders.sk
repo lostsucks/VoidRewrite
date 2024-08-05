@@ -1,0 +1,18 @@
+on placeholderapi placeholder request for the prefix "void":
+    if identifier = "tab_level":
+        set {_prestige} to romanized int tag "custom;prestige" of nbt compound of player
+        set {_level} to int tag "custom;level" of nbt compound of player
+
+        if {_prestige} is not set:
+            set int tag "custom;prestige" of nbt compound of player to 1
+            set {_prestige} to 1
+        if {_level} is not set:
+            set int tag "custom;level" of nbt compound of player to 1
+            set {_level} to 1
+
+        set the result to "&8[&d%{_prestige}%-%{_level}%&8]"
+    if identifier = "bounty":
+        if double tag "custom;Bounty" of nbt compound of player is not set:
+            set double tag "custom;Bounty" of nbt compound of player to 0
+        set {_bounty} to double tag "custom;Bounty" of nbt compound of player
+        set the result to {_bounty}
