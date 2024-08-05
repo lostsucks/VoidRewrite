@@ -37,7 +37,7 @@ command toggle:
             send action bar "&7Toggled &aON &7random items."
 
 every {@toggle} seconds:
-    if boolean tag "custom;Toggle" of nbt compound of player is true:
+    if boolean tag "custom;Toggle" of nbt compound of player is not set:
         loop all players:
             give loop-player random element out of {RIPM::*}
             play sound "entity.experience_orb.pickup" to loop-player  
