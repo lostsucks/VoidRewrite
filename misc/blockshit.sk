@@ -39,3 +39,22 @@ every 20 seconds:
     loop all boats:
         if region at loop-entity is "spawn":
             kill loop-entity
+
+on spawn of ender dragon:
+    cancel event
+    kill all ender dragons
+on spawn of warden:
+    cancel event
+    kill all wardens
+on spawn of elder guardian:
+    cancel event
+    kill all elder guardians
+on spawn of evoker:
+    cancel event
+    kill all evokers
+on spawn of evoker fangs:
+    cancel event
+    kill all evoker fangs
+on spawn of wither:
+    cancel event
+    kill all withers
