@@ -1,0 +1,207 @@
+command history <offline player>:
+    permission: userhistory
+    usage: &7/history <offline player>
+    trigger:
+        loop string list tag "custom;PunishHistory" of nbt compound of arg-1:
+            add loop-value to {_a::*}
+        set {_a} to merge components {_a::*}
+
+        wait 1 tick
+        send "%nl%&e&l%arg-1%&e's &fPunishment History:%nl%%{_a}%"
+        play sound "block.note_block.pling" to player
+
+command punishments:
+    aliases: puns
+    trigger:
+        loop string list tag "custom;PunishHistory" of nbt compound of player:
+            add loop-value to {_a::*}
+        set {_a} to merge components {_a::*}
+
+        wait 1 tick
+        send "%nl%&e&lYour &fPunishment History:%nl%%{_a}%"
+        play sound "block.note_block.pling" to player
+
+command purgehistory <offline player>:
+    permission: purgehistory
+    usage: &7/purgehistory <offline player>
+    trigger:
+        set {_n} to nbt compound of arg-1
+        set string list tag "custom;PunishHistory" of {_n} to ""
+        send "&6&lSTAFF &7[Void11] &7• &e%arg-1% &7has had their punishment history purged." to all players where [input has permission "staffchat"]
+
+# ban
+
+command ban <offline player> <text> [<text>]:
+    permission: ban
+    usage: &7/ban <offline player> [reason]
+    trigger:
+
+        {banList::*} does not contain arg-1's uuid
+
+        if arg-3 is not set:
+            set {_reason} to "None"
+        else:
+            set {_reason} to arg-3
+
+        set {_n} to nbt compound of arg-1
+
+        if arg-2 is "forever":
+            add arg-1's uuid to {banList::*}
+            set {banLength::%uuid of arg-1%} to 999 days
+
+            add "  &8[&7%4 hours ago% EST&8] &7• &eBanned &7(forever)%nl%" to string list tag "custom;PunishHistory" of nbt compound of arg-1
+            send "&6&lSTAFF &7[Void11] &7• &e%arg-1% &7has been banned &eforever &7for &e%{_reason}%&7." to all players where [input has permission "staffchat"]
+            kick arg-1 due to "&cYou have been banned forever."
+
+        else:
+
+            set {_a} to last character of arg-2
+            #set {_b} to arg-2.replaceAll({_a}, "")
+            set {_b} to arg-2
+            replace all {_a} in {_b} with ""
+
+            if {_a} = "s":
+                set {_timespan} to "%{_b}% seconds" parsed as timespan
+            else if {_a} = "m":
+                set {_timespan} to "%{_b}% minutes" parsed as timespan
+            else if {_a} = "h":
+                set {_timespan} to "%{_b}% hours" parsed as timespan
+            else if {_a} = "d":
+                set {_timespan} to "%{_b}% days" parsed as timespan
+            else if {_a} = "w":
+                set {_timespan} to "%{_b}% weeks" parsed as timespan
+            else:
+                send "&cInvalid timespan! &7(s/m/h/d/w)" to player
+                stop    
+
+            add arg-1's uuid to {banList::*}
+            set {banLength::%uuid of arg-1%} to {_timespan}
+            kick arg-1 due to "&cYou have been banned for %{_timespan}%."
+
+            #add "&eBanned &7(%{_timespan}%)&7." to arg-1's punishment history
+            add "  &8[&7%4 hours ago% EST&8] &7• &eBanned &7(%{_timespan}%)%nl%" to string list tag "custom;PunishHistory" of nbt compound of arg-1
+            send "&6&lSTAFF &7[Void11] &7• &e%arg-1% &7has been banned &efor %{_timespan}% &7for &e%{_reason}%&7." to all players where [input has permission "staffchat"]
+
+on connect:
+    set {_n} to nbt compound of player
+
+    if {banList::*} contains uuid of player:
+        kick player due to "&cYou are banned for %{banLength::%uuid of player%}%." 
+
+command unban <offline player>:
+    permission: unban
+    usage: &7/unban <offline player>
+    trigger:
+        {banList::*} contains arg-1's uuid
+        set {_n} to nbt compound of arg-1
+        remove arg-1's uuid from {banList::*}
+        set {banLength::%uuid of arg-1%} to 0
+        send "&6&lSTAFF &7[Void11] &7• &e%arg-1% &7has been unbanned." to all players where [input has permission "staffchat"]
+
+every 1 second:
+    loop {banList::*}:
+        if {banLength::%loop-value%} is more than 0 seconds:
+            remove 1 second from {banLength::%loop-value%}
+        else:
+            remove loop-value from {banList::*}
+            delete {banLength::%loop-value%}
+
+            send "&6&lSTAFF &7[Void11] &7• &e%loop-value parsed as offline player's name% &7has been unbanned. (Automatic)" to all players where [input has permission "staffchat"]
+
+# muute
+
+command mute <offline player> <text> [<text>]:
+    permission: mute
+    usage: &7/mute <offline player> [reason]
+    trigger:
+
+        {muteList::*} does not contain arg-1's uuid
+
+        if arg-3 is not set:
+            set {_reason} to "None"
+        else:
+            set {_reason} to arg-3
+
+        set {_n} to nbt compound of arg-1
+
+        if arg-2 is "forever":
+            add arg-1's uuid to {muteList::*}
+            set {muteLength::%uuid of arg-1%} to 999 years
+
+            #add "&eMuted &7(forever)" to arg-1's punishment history
+            add "  &8[&7%4 hours ago% EST&8] &7• &eMuted &7(forever)%nl%" to string list tag "custom;PunishHistory" of nbt compound of arg-1
+            send "&6&lSTAFF &7[Void11] &7• &e%arg-1% &7has been muted &eforever &7for &e%{_reason}%&7." to all players where [input has permission "staffchat"]
+
+        else:
+
+            set {_a} to last character of arg-2
+            #set {_b} to arg-2.replaceAll({_a}, "")
+            set {_b} to arg-2
+            replace all {_a} in {_b} with ""
+
+            if {_a} = "s":
+                set {_timespan} to "%{_b}% seconds" parsed as timespan
+            else if {_a} = "m":
+                set {_timespan} to "%{_b}% minutes" parsed as timespan
+            else if {_a} = "h":
+                set {_timespan} to "%{_b}% hours" parsed as timespan
+            else if {_a} = "d":
+                set {_timespan} to "%{_b}% days" parsed as timespan
+            else if {_a} = "w":
+                set {_timespan} to "%{_b}% weeks" parsed as timespan
+            else:
+                send "&cInvalid timespan! &7(s/m/h/d/w)" to player
+                stop    
+
+            add arg-1's uuid to {muteList::*}
+            set {muteLength::%uuid of arg-1%} to {_timespan}
+
+            #add "&eMuted &7(%{_timespan}%)." to arg-1's punishment history
+            add "  &8[&7%4 hours ago% EST&8] &7• &eMuted &7(%{_timespan}%)%nl%" to string list tag "custom;PunishHistory" of nbt compound of arg-1
+            send "&6&lSTAFF &7[Void11] &7• &e%arg-1% &7has been muted &efor %{_timespan}% &7for &e%{_reason}%&7." to all players where [input has permission "staffchat"]
+
+command unmute <offline player>:
+    permission: unmute
+    usage: &7/unmute <offline player>
+    trigger:
+        {muteList::*} contains arg-1's uuid
+        set {_n} to nbt compound of arg-1
+        remove arg-1's uuid from {muteList::*}
+        set {muteLength::%uuid of arg-1%} to 0
+        send "&6&lSTAFF &7[Void11] &7• &e%arg-1% &7has been unmuted." to all players where [input has permission "staffchat"]
+
+every 1 second:
+    loop {muteList::*}:
+        if {muteLength::%loop-value%} is more than 0 seconds:
+            remove 1 second from {muteLength::%loop-value%}
+        else:
+            remove loop-value from {muteList::*}
+            delete {muteLength::%loop-value%}
+
+            send "&6&lSTAFF &7[Void11] &7• &e%loop-value parsed as offline player's name% &7has been unmuted. (Automatic)" to all players where [input has permission "staffchat"]
+
+# kick
+
+command kick <offline player> <text>:
+    permission: kick
+    usage: &7/kick <offline player> <reason>
+    trigger:
+        kick arg-1 due to "&c%arg-2%"
+
+        #add "&eKicked" to arg-1's punishment history
+        add "  &8[&7%4 hours ago% EST&8] &7• &eKicked%nl%" to string list tag "custom;PunishHistory" of nbt compound of arg-1
+        send "&6&lSTAFF &7[Void11] &7• &e%arg-1% &7has been kicked &efor &e%arg-2%&7." to all players where [input has permission "staffchat"]
+
+# warn
+
+command warn <offline player> <text>:
+    permission: warn
+    usage: &7/warn <offline player> <reason>
+    trigger:
+        set {_n} to nbt compound of arg-1
+
+        #add "&eWarning" to arg-1's punishment history
+        add "  &8[&7%4 hours ago% EST&8] &7• &eWarning%nl%" to string list tag "custom;PunishHistory" of nbt compound of arg-1
+        send "&6&lSTAFF &7[Void11] &7• &e%arg-1% &7has been warned &efor &e%arg-2%&7." to all players where [input has permission "staffchat"]
+        send "&c&lWARNING! &cYou were warned by a staff for %arg-2%" to arg-1
+        send title "" with subtitle "&c&lWARNING! &cYou were warned by a staff for %arg-2%" to arg-1
