@@ -52,6 +52,14 @@ command setspawn:
         set {spawn} to player's location
         send "&7Spawn location set to your current location!" to player
 
+on respawn:
+    wait 1 tick 
+    teleport player to {spawn}
+
+on join:
+    wait 1 tick
+    teleport player to {spawn}
+
 # rules
 
 command rules:
